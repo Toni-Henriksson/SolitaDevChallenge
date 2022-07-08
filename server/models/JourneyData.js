@@ -1,23 +1,34 @@
 const mongoose = require('mongoose')
-
+const departureStation = "Departure station name";
+const returnStation = "Return station name";
+const distance = "Covered distance (m)";
+const duration = "Duration (sec)";
 const RouteDataSchema = new mongoose.mongoose.Schema({
-    startlocation: {
+    departure: {
         type: String,
         required: true,
     },
-    endlocation: {
+    Return: {
         type: String,
         required: true,
     },
-    starttime: {
-        type: Date,
+    [departureStation]: {
+        type: String,
         required: true,
     },
-    endtime: {
-        type: Date,
+    [returnStation]: {
+        type: String,
         required: true,
-    }
+    },
+    [distance]: {
+        type: String,
+        required: true,
+    },
+    [duration]: {
+        type: Object,
+        required: true,
+    },
 });
 
-const RouteDataModel = mongoose.model("SolitaHaaste2022", RouteDataSchema)
+const RouteDataModel = mongoose.model("Journey_Data", RouteDataSchema)
 module.exports = RouteDataModel;
