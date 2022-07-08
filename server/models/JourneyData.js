@@ -1,10 +1,23 @@
 const mongoose = require('mongoose')
-const RouteData = new mongoose.mongoose.Schema({
-    name: {
+
+const RouteDataSchema = new mongoose.mongoose.Schema({
+    startlocation: {
         type: String,
         required: true,
     },
-    age: {
-        
+    endlocation: {
+        type: String,
+        required: true,
+    },
+    starttime: {
+        type: Date,
+        required: true,
+    },
+    endtime: {
+        type: Date,
+        required: true,
     }
-})
+});
+
+const RouteDataModel = mongoose.model("SolitaHaaste2022", RouteDataSchema)
+module.exports = RouteDataModel;

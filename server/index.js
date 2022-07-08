@@ -5,6 +5,7 @@ require("dotenv").config();
 
 mongoose.connect(process.env.MONGODB_URL);
 
+
 app.listen(3001, () => {
     console.log("Server running!");
-})
+});
