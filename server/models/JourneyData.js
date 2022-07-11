@@ -1,25 +1,32 @@
 const mongoose = require('mongoose')
 mongoose.pluralize(null);
-const departureStation = "Departure station name";
-const returnStation = "Return station name";
-const distance = "Covered distance (m)";
-const duration = "Duration (sec)";
-const dbName = "journeydata";
 
 const RouteDataSchema = new mongoose.mongoose.Schema({
-    [departureStation]: {
+    Departure: {
         type: String,
         required: true,
     },
-    [returnStation]: {
+    Return: {
         type: String,
         required: true,
     },
-    [distance]: {
+    distance: {
         type: String,
         required: true,
     },
-    [duration]: {
+    departurestation: {
+        type: String,
+        required: true,
+    },
+    returnstation: {
+        type: String,
+        required: true,
+    },
+    returnstationid: {
+        type: String,
+        required: true,
+    },
+    departurestationid: {
         type: String,
         required: true,
     }
