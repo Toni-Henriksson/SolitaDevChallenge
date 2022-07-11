@@ -1,0 +1,22 @@
+#Decided to do an diary for my progress during building this challenge. 
+##This way i can easily access some spesific information about creating a full stack MERN application.
+
+6.11.2022:
+- As i didnt have alot of experience building mern stack apps before, i studied some documentation and tutorials about the stack. 
+- Project setup and basic skeleton of folder structure
+- Downloaded mongodb compass and wired up the connection
+- setup .env files for some protection for my api keys/mongodb urls.
+- Created an new git repo for obvious reasons :D 
+
+10.11.2022:
+- Finished building the basic structure of backend. Backend is build inside the "server"- folder.
+- Created few basic endpoints for getting all data in database and pushing data to the server. 
+- Had issues with given dataset, the field names had spaces in them -> caused trouble. 
+    -- fixed this by running this command on mongodb internal terminal: db.COLLECTIONNAME.updateMany( { }, { $rename: { "OLDFIELDNAME" : "NEWFIELDNAME"} } )
+
+11.7.2022
+- Backend endpoints didnt act normally. Had issues where i could not filter data the way i wanted. 
+- Also in the given dataset there is journey duration field witch is an abject. I had to modify the dataset to have duration as an string.  
+    -- fixed this by changing duration(sec)Object : "124" -> duration: "124"
+    -- For this i had to use the following mongodb command: 
+        - db.COLLECTIONNAME.update( { }, [ { $set: {"OLDFIELDNAME" : "$OLDFIELDNAME.VALUENAME" } } ], {multiline:true} )
