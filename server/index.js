@@ -9,7 +9,7 @@ app.use(express.json());
 mongoose.connect(process.env.MONGODB_URL);
 
 // Endpoint gets all routedata from database.
-app.get("/getRouteData", (req, res) => {
+app.get("/getData", (req, res) => {
     RouteDataModel.find({}, (err, result) => {
         if(err) {
             res.json(err);
@@ -24,7 +24,6 @@ app.post("/createRoute", async (req, res) => {
     const data = req.body;
     const newData =  new RouteDataModel(data);
     await newData.save();
-
     res.json(data);
 });
 
