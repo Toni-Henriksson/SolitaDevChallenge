@@ -7,15 +7,19 @@ const duration = "Duration (sec)";
 const dbName = "journeydata";
 
 const RouteDataSchema = new mongoose.mongoose.Schema({
-    name: {
+    [departureStation]: {
         type: String,
         required: true,
     },
-    age: {
+    [returnStation]: {
         type: String,
         required: true,
     },
-    username: {
+    [distance]: {
+        type: String,
+        required: true,
+    },
+    [duration]: {
         type: String,
         required: true,
     }
