@@ -1,5 +1,5 @@
 # Solita dev academy's coding challenge
-## I created an diary about the progress i made during completing this challenge. Check it out: project_diary.txt
+**I created an diary about the progress i made during completing this challenge. Check it out: project_diary.txt**
 
 ## I chose to use following technologies for this challenge: 
 1. **M**ongoDB
