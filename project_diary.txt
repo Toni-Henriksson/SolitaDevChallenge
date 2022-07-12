@@ -23,3 +23,9 @@
 - Also had to change distance from string to double so i can compare them in endpoints : 
     - db.COLLECTIONNAME.update({}, [ {$set:{ "FIELD" : {$toDouble: "$FIELD"}}} ], {multi:true})
     
+12.7.2022
+- Added pagination for frontend to display the journey data objects. 
+- Buttons for next page and previous button.
+- Endpoint was getting all the journey data from database, this caused huge lag obviously. 
+    -- Fixed this issue by making an endoint that takes pagination parameter in and based on that gets data from database. 
+       This way only the needed data for the page is fetched from the db, instantly. No lag. yayy :).  
