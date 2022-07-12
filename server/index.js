@@ -28,7 +28,7 @@ app.get("/getNextData", (req, res) => {
         } else {
             res.json(result);
         }
-    }).skip(req.query.next).limit(4);
+    }).skip(req.query.next).limit(15);
 });
 
 // Endpoint to add data to db 

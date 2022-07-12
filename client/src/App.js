@@ -9,7 +9,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [next, setNext] = useState(0);
 
-
   useEffect(() => {
     fetchNextPage(next);
   }, [])
@@ -30,16 +29,19 @@ function App() {
         fetchNextPage(i)
       }
   }
+
   return (
     <div className="App">
       <NavBar></NavBar>
       <h1>Routes</h1>
-      <div>
-        <button onClick={()=>{handlePagination(4)}}>Load next</button>
-        <button onClick={()=>{handlePagination(-4)}}>Load last</button>
-      </div>
       <div className="RoutesListWrapper">
-        <Routes posts={listOfRoutes} loading={loading} />
+        <div className="RoutesSection">
+          <Routes posts={listOfRoutes} loading={loading} />
+        </div>
+        <div className="PaginationSection">
+          <button className="btn" onClick={()=>{handlePagination(-15)}}>last</button>  
+          <button className="btn" onClick={()=>{handlePagination(15)}}>next</button>
+        </div>
       </div>
     </div>
   );
