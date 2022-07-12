@@ -1,29 +1,45 @@
 import "./App.css";
 import {useState, useEffect} from 'react';
 import axios from "axios";
+import Routes from "./components/Routes";
+import NavBar from "./components/navbar/Navbar";
 
 function App() {
   const [listOfRoutes, setListOfRoutes] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [next, setNext] = useState(0);
+
+
   useEffect(() => {
-    axios.get("http://localhost:3001/getData").then((response) => {
-      setListOfRoutes(response.getData)
-    })
+    fetchNextPage(next);
   }, [])
-  
+
+  const fetchNextPage = async(next) => {
+    console.log(next)
+    setLoading(true);
+    axios.get("http://localhost:3001/getNextData", { params: { next } }).then((response) => {
+      console.log(response.data)
+      setListOfRoutes(response.data)
+      setLoading(false);
+    })
+  }
+  const handlePagination = (numOfPages) => {
+      let i = next + numOfPages;
+      if(i >= 0){
+        setNext(i)
+        fetchNextPage(i)
+      }
+  }
   return (
     <div className="App">
+      <NavBar></NavBar>
       <h1>Routes</h1>
+      <div>
+        <button onClick={()=>{handlePagination(4)}}>Load next</button>
+        <button onClick={()=>{handlePagination(-4)}}>Load last</button>
+      </div>
       <div className="RoutesListWrapper">
-        {listOfRoutes.map((route) => {
-          return(
-            <div>
-              <h1>Start location: {route.DepartureStationName}</h1>
-              <h1>Return location: {route.ReturnStationName}</h1>
-              <h1>Distance: {route.Distance}</h1>
-              <h1>Duration: {route.Duration}</h1>
-            </div>
-          )
-        })}
+        <Routes posts={listOfRoutes} loading={loading} />
       </div>
     </div>
   );

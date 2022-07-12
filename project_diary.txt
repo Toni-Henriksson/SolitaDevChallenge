@@ -20,3 +20,6 @@
     -- fixed this by changing duration(sec)Object : "124" -> duration: "124"
     -- For this i had to use the following mongodb command: 
         - db.COLLECTIONNAME.update( { }, [ { $set: {"OLDFIELDNAME" : "$OLDFIELDNAME.VALUENAME" } } ], {multiline:true} )
+- Also had to change distance from string to double so i can compare them in endpoints : 
+    - db.COLLECTIONNAME.update({}, [ {$set:{ "FIELD" : {$toDouble: "$FIELD"}}} ], {multi:true})
+    

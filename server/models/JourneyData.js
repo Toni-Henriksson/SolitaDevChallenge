@@ -11,7 +11,7 @@ const RouteDataSchema = new mongoose.mongoose.Schema({
         required: true,
     },
     distance: {
-        type: String,
+        type: Number,
         required: true,
     },
     departurestation: {
@@ -29,8 +29,12 @@ const RouteDataSchema = new mongoose.mongoose.Schema({
     departurestationid: {
         type: String,
         required: true,
+    },
+    duration: {
+        type: Number,
+        required: true,
     }
 });
 
-const RouteDataModel = mongoose.model(dbName, RouteDataSchema)
+const RouteDataModel = mongoose.model("journeydata", RouteDataSchema)
 module.exports = RouteDataModel;

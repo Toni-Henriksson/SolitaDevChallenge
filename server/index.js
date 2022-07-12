@@ -6,19 +6,29 @@ const cors = require('cors');
 require("dotenv").config();
 app.use(express.json());
 app.use(cors());
-
 mongoose.connect(process.env.MONGODB_URL);
-const distance = "Covered distance (m)";
 
-// Endpoint gets all routedata from database.
+// Endpoint gets all routedata from database. (We dont use this, dataset is so huge it would just crash the app.)
 app.get("/getData", (req, res) => {
-    RouteDataModel.find({"Covered distance (m)": {$gt: 10000}}, (err, result) => {
+    RouteDataModel.find({distance:{$gt:10}, duration: {$gt:10}}, (err, result) => {
         if(err) {
             res.json(err);
         } else {
             res.json(result);
         }
-    });
+    }).limit(40);
+});
+
+// Endpoint to handle paginated db search, this way we just get small chunk of data that user needs. Instantly. 
+app.get("/getNextData", (req, res) => {
+    console.log(req.query.next)
+    RouteDataModel.find({distance:{$gt:10}, duration: {$gt:10}}, (err, result) => {
+        if(err) {
+            res.json(err);
+        } else {
+            res.json(result);
+        }
+    }).skip(req.query.next).limit(4);
 });
 
 // Endpoint to add data to db 
