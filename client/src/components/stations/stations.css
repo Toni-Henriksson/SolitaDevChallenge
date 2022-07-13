@@ -1,0 +1,42 @@
+.station-item{
+    display: flex;
+    width: 300px;
+    height: 300px;
+    flex-direction: row;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #e2c6ff;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+    margin: 5px;
+}
+.stations-list-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
+    justify-content: center;
+    width: 1200px;
+    height: 800px;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #e6e6e6;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+      rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  }
+  .station-item-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 300px;
+  }
+  .stations-controls{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .searchbar{
+    width: 300px;
+    height: 40px;
+  }

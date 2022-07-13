@@ -2,6 +2,7 @@ const express = require("express")
 const app = express();
 const mongoose = require('mongoose');
 const RouteDataModel = require('./models/JourneyData');
+const StationsDataModel = require('./models/StationsData');
 const cors = require('cors');
 require("dotenv").config();
 app.use(express.json());
@@ -29,6 +30,18 @@ app.get("/getNextData", (req, res) => {
             res.json(result);
         }
     }).skip(req.query.next).limit(15);
+});
+
+// Paginated DB search for stations
+app.get("/getStations", (req, res) => {
+    console.log(req.query.next)
+    StationsDataModel.find({}, (err, result) => {
+        if(err) {
+            res.json(err);
+        } else {
+            res.json(result);
+        }
+    }).skip(req.query.next).limit(6);
 });
 
 // Endpoint to add data to db 

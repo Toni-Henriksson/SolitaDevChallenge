@@ -1,36 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap');
+
 .App {
   background-color: #F0F0F0;
 }
 .header{
   display: flex;
   justify-content: center;
-  margin-top: 60px;
 }
 .content-container{
   display: flex;
   justify-content: center;
 }
-.routes-list-wrapper {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  align-content: flex-start;
-  width: 1200px;
-  height: 900px;
-  border-radius: 10px;
-  overflow: hidden;
-  background-color: #e6e6e6;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-    rgba(0, 0, 0, 0.22) 0px 15px 12px;
-}
-.pagination-section {
+.navigation-container{
   display: flex;
   justify-content: center;
-  height: 20%;
+  align-items: center;
+  align-content: center;
   width: 100%;
-}
-.routes-section {
-  height: 80%;
 }
 h1 {
   font-family: system-ui, sans-serif;
@@ -52,10 +38,12 @@ h1 {
     0px
     var(--stroke-color);
 }
+
 p{
-  font-family: system-ui, sans-serif;
+  font-family: 'Grape Nuts', cursive;
+  font-size: 18px;
   font-weight: 600;
-  font-size: 14px;
+  letter-spacing: 1px;
 }
 body{
   background-color: #F0F0F0;

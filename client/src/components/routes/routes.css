@@ -14,6 +14,29 @@
   margin: 5px;
   padding: 5px;
 }
+.routes-list-wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-content: flex-start;
+  width: 1200px;
+  height: 800px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #e6e6e6;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+.pagination-section {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  margin-top: 50px;
+  width: 100%;
+}
+.routes-section {
+  height: 80%;
+}
 .btn {
   width: 50px;
   height: 50px;
