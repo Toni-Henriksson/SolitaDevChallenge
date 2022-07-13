@@ -1,59 +1,61 @@
 .App {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   background-color: #F0F0F0;
 }
-.RoutesListWrapper {
+.header{
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+.content-container{
+  display: flex;
+  justify-content: center;
+}
+.routes-list-wrapper {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   align-content: flex-start;
   width: 1200px;
+  height: 900px;
   border-radius: 10px;
   overflow: hidden;
   background-color: #e6e6e6;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
-.PaginationSection{
+.pagination-section {
+  display: flex;
+  justify-content: center;
   height: 20%;
-  width: 90%;
-  padding: 80px;
+  width: 100%;
 }
-.RoutesSection{
+.routes-section {
   height: 80%;
 }
-.RouteCard {
-  height: 200px;
-  width: 18%;
-  background-color: rgb(168, 198, 255);
-  color: black;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
-  text-align: left;
-  font-family:cursive;
+h1 {
+  font-family: system-ui, sans-serif;
+  font-size: calc( 1em + 5vmin );
+  font-weight: 900;
+  color: rgb(31, 13, 10);
+  --x-offset: -0.0625em;
+  --y-offset: 0.0625em;
+  --stroke: 0.025em;
+  --background-color: white;
+  --stroke-color: lightblue;
+  text-shadow: 
+    var(--x-offset)
+    var(--y-offset)
+    0px
+    var(--background-color), 
+    calc( var(--x-offset) - var(--stroke) )
+    calc( var(--y-offset) + var(--stroke) )
+    0px
+    var(--stroke-color);
+}
+p{
+  font-family: system-ui, sans-serif;
   font-weight: 600;
-  margin: 5px;
-  padding: 5px;
-}
-
-.btn{
-  width: 50px;
-  height: 50px;
-  margin-left: 15px;
-  margin-right: 15px;
-  border-radius: 5px;
-  background-color: #663399;
-  border-color: #663399;
-  color: white;
-}
-.btn:hover{
-  background-color: #753ab1;
-}
-h1{
-  color: rgb(179, 226, 226);
+  font-size: 14px;
 }
 body{
   background-color: #F0F0F0;
