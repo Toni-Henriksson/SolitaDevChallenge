@@ -44,6 +44,18 @@ app.get("/getStations", (req, res) => {
     }).skip(req.query.next).limit(6);
 });
 
+// Search db by station name
+app.get("/getStationByName", (req, res) => {
+    console.log(req.query.next)
+    StationsDataModel.find({nimi: req.query.stationName}, (err, result) => {
+        if(err) {
+            res.json(err);
+        } else {
+            res.json(result);
+        }
+    }).limit(1);
+});
+
 // Endpoint to add data to db 
 app.post("/createRoute", async (req, res) => {
     const data = req.body;

@@ -28,10 +28,11 @@ const Stations = () => {
         fetchNextPage(i)
       }
   }
-  
+
   const handleSearch = async(stationName) => {
     axios.get("http://localhost:3001/getStationByName", { params: { stationName } }).then((response) => {
       setSearchStation(response.data)
+      console.log(response.data)
     })
   }
 
@@ -47,7 +48,7 @@ const Stations = () => {
     <div>
       <div className='stations-controls'>
         <input placeholder='Search station by name..' className='searchbar'></input>
-        <button className='button-main' onClick={()=>handleSearch()}>search</button>
+        <button className='button-main' onClick={()=>handleSearch('Hanasaari')}>search</button>
       </div>
       <div className="stations-list-wrapper">
         {listOfStations.map((station, id) => {
