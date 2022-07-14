@@ -46,14 +46,14 @@ app.get("/getStations", (req, res) => {
 
 // Search db by station name
 app.get("/getStationByName", (req, res) => {
-    console.log(req.query.next)
+    console.log(req.query.stationName)
     StationsDataModel.find({nimi: req.query.stationName}, (err, result) => {
         if(err) {
             res.json(err);
         } else {
             res.json(result);
         }
-    }).limit(1);
+    });
 });
 
 // Endpoint to add data to db 
