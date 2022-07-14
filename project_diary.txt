@@ -16,7 +16,7 @@
 
 11.7.2022
 - Backend endpoints didnt act normally. Had issues where i could not filter data the way i wanted. 
-- Also in the given dataset there is journey duration field witch is an abject. I had to modify the dataset to have duration as an string.  
+- Also in the given dataset there is journey duration field which is an abject. I had to modify the dataset to have duration as an string.  
     -- fixed this by changing duration(sec)Object : "124" -> duration: "124"
     -- For this i had to use the following mongodb command: 
         - db.COLLECTIONNAME.update( { }, [ { $set: {"OLDFIELDNAME" : "$OLDFIELDNAME.VALUENAME" } } ], {multiline:true} )
@@ -29,3 +29,7 @@
 - Endpoint was getting all the journey data from database, this caused huge lag obviously. 
     -- Fixed this issue by making an endoint that takes pagination parameter in and based on that gets data from database. 
        This way only the needed data for the page is fetched from the db, instantly. No lag. yayy :).  
+
+14.7.2022
+- Added feature to calculate all stations returns and departures. 
+- Did some work on the front end to make app look better (more retro). Altought i dont think looks really matter in this challenge, but i wanted it nice anyway :)

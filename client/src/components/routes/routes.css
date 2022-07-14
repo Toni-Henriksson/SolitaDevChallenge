@@ -3,16 +3,11 @@
   width: 18%;
   background-color: #efdfff;
   color: black;
-  border-radius: 10px;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #e2c6ff;
-  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   text-align: left;
   font-family: cursive;
   font-weight: 400;
   margin: 5px;
-  padding: 5px;
+  padding: 10px;
 }
 .routes-list-wrapper {
   display: flex;

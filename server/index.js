@@ -58,6 +58,7 @@ app.get("/getStationByName", (req, res) => {
 });
 
 // Calculates stations total journeys from and to station. 
+// Returns two values: total departures from station and total returns to station
 app.get("/getStationJourneys", (req, res) => {
     let stationID = req.query.stationid;
     RouteDataModel.find({departurestationid:stationID}, (err, result) => {
@@ -66,7 +67,6 @@ app.get("/getStationJourneys", (req, res) => {
         } else {
             if(result){
                 let departuresFromStation = result.length;
-                //res.json(result);
                 RouteDataModel.find({returnstationid:stationID}, (err, result2) => {
                     if(err) {
                         res.json(err);
@@ -76,7 +76,6 @@ app.get("/getStationJourneys", (req, res) => {
                                 departures: departuresFromStation,
                                 returns: result2.length
                             }];
-
                             res.json(calculatedResult);
                         }
                     }

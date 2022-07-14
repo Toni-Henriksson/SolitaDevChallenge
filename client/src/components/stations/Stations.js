@@ -43,7 +43,7 @@ const Stations = () => {
 
   const calculateStationJourneys = (stationid) => {
     axios.get("http://localhost:3001/getStationJourneys", { params: { stationid } }).then((response) => {
-        setStationJourneyData(response.data)
+      setStationJourneyData(response.data)
     })
   }
 
@@ -58,30 +58,30 @@ const Stations = () => {
   return (
     <div>
       <div className='stations-controls'>
-        <input placeholder='Search station by name..' className='searchbar' onChange={(e)=> {setSearchedStation(e.target.value)}}></input>
+        <input placeholder='Search station by name..' className='searchbar' onChange={(e) => { setSearchedStation(e.target.value) }}></input>
         <button className='button-main' onClick={() => handleSearch(searchedStation)}>search</button>
       </div>
       <div className="stations-list-wrapper">
         {
           toggleSearch ?
-          <div>
-            <div className="single-station-card-wrapper">
-              <div className="single-station-card" style={{ backgroundImage: `url(${postitImageDark})`, backgroundRepeat: `no-repeat`, backgroundSize: `cover` }}>
-                <p>Nimi: {searchStation[0]?.Nimi}</p>
-                <p>Osoite: {searchStation[0]?.Osoite}</p>
-                <p>Kaupunki: {searchStation[0]?.Kaupunki}</p>
-                <p>Omistaja: {searchStation[0]?.Operaattor}</p>
-                <p>Kapasiteetti: {searchStation[0]?.Kapasiteet}</p>
-                <p>X-lokaatio: {searchStation[0]?.x}</p>
-                <p>Y-lokaatio: {searchStation[0]?.y}</p>
-                <p>Total departures: {stationJourneyData[0]?.departures}</p>
-                <p>Total returns: {stationJourneyData[0]?.returns}</p>
+            <div>
+              <div className="single-station-card-wrapper">
+                <div className="single-station-card" style={{ backgroundImage: `url(${postitImageDark})`, backgroundRepeat: `no-repeat`, backgroundSize: `cover` }}>
+                  <p>Nimi: {searchStation[0]?.Nimi}</p>
+                  <p>Osoite: {searchStation[0]?.Osoite}</p>
+                  <p>Kaupunki: {searchStation[0]?.Kaupunki}</p>
+                  <p>Omistaja: {searchStation[0]?.Operaattor}</p>
+                  <p>Kapasiteetti: {searchStation[0]?.Kapasiteet}</p>
+                  <p>X-lokaatio: {searchStation[0]?.x}</p>
+                  <p>Y-lokaatio: {searchStation[0]?.y}</p>
+                  <p>Total departures: {stationJourneyData[0]?.departures}</p>
+                  <p>Total returns: {stationJourneyData[0]?.returns}</p>
+                </div>
+              </div>
+              <div className="single-station-controls">
+                <button onClick={() => setToggleSearch(false)}>Close</button>
               </div>
             </div>
-            <div className="single-station-controls">
-              <button onClick={() => setToggleSearch(false)}>Close</button>
-            </div>
-          </div>
             :
             listOfStations.map((station, id) => {
               return (
