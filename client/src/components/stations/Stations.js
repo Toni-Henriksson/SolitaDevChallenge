@@ -7,9 +7,11 @@ const Stations = () => {
   const [listOfStations, setListOfStations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [next, setNext] = useState(0);
+
   const [searchStation, setSearchStation] = useState([]);
   const [searchedStation, setSearchedStation] = useState('');
   const [toggleSearch, setToggleSearch] = useState(false);
+  const [stationJourneyData, setStationJourneyData] = useState([]);
 
   useEffect(() => {
     fetchNextPage(next);
@@ -33,9 +35,15 @@ const Stations = () => {
 
   const handleSearch = async (stationName) => {
     axios.get("http://localhost:3001/getStationByName", { params: { stationName } }).then((response) => {
-      console.log(response.data);
+      calculateStationJourneys(response.data[0].ID)
       setSearchStation(response.data);
       setToggleSearch(true);
+    })
+  }
+
+  const calculateStationJourneys = (stationid) => {
+    axios.get("http://localhost:3001/getStationJourneys", { params: { stationid } }).then((response) => {
+        setStationJourneyData(response.data)
     })
   }
 
@@ -59,13 +67,15 @@ const Stations = () => {
           <div>
             <div className="single-station-card-wrapper">
               <div className="single-station-card" style={{ backgroundImage: `url(${postitImageDark})`, backgroundRepeat: `no-repeat`, backgroundSize: `cover` }}>
-                <p>Nimi: {searchStation[0].Nimi}</p>
-                <p>Osoite: {searchStation[0].Osoite}</p>
-                <p>Kaupunki: {searchStation[0].Kaupunki}</p>
-                <p>Omistaja: {searchStation[0].Operaattor}</p>
-                <p>Kapasiteetti: {searchStation[0].Kapasiteet}</p>
-                <p>X-lokaatio: {searchStation[0].x}</p>
-                <p>Y-lokaatio: {searchStation[0].y}</p>
+                <p>Nimi: {searchStation[0]?.Nimi}</p>
+                <p>Osoite: {searchStation[0]?.Osoite}</p>
+                <p>Kaupunki: {searchStation[0]?.Kaupunki}</p>
+                <p>Omistaja: {searchStation[0]?.Operaattor}</p>
+                <p>Kapasiteetti: {searchStation[0]?.Kapasiteet}</p>
+                <p>X-lokaatio: {searchStation[0]?.x}</p>
+                <p>Y-lokaatio: {searchStation[0]?.y}</p>
+                <p>Total departures: {stationJourneyData[0]?.departures}</p>
+                <p>Total returns: {stationJourneyData[0]?.returns}</p>
               </div>
             </div>
             <div className="single-station-controls">

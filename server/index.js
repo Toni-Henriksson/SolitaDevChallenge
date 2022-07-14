@@ -22,7 +22,6 @@ app.get("/getData", (req, res) => {
 
 // Endpoint to handle paginated db search, this way we just get small chunk of data that user needs. Instantly. 
 app.get("/getNextData", (req, res) => {
-    console.log(req.query.next)
     RouteDataModel.find({distance:{$gt:10}, duration: {$gt:10}}, (err, result) => {
         if(err) {
             res.json(err);
@@ -33,8 +32,8 @@ app.get("/getNextData", (req, res) => {
 });
 
 // Paginated DB search for stations
+// see for explanation of mongoose find function: https://www.geeksforgeeks.org/mongoose-find-function/
 app.get("/getStations", (req, res) => {
-    console.log(req.query.next)
     StationsDataModel.find({}, (err, result) => {
         if(err) {
             res.json(err);
@@ -46,12 +45,43 @@ app.get("/getStations", (req, res) => {
 
 // Search db by station name
 app.get("/getStationByName", (req, res) => {
-    console.log(req.query.stationName)
-    StationsDataModel.find({nimi: req.query.stationName}, (err, result) => {
+    let station = req.query.stationName;
+    StationsDataModel.find({Nimi:station}, (err, result) => {
         if(err) {
             res.json(err);
         } else {
-            res.json(result);
+            if(result){
+                res.json(result);
+            }
+        }
+    }).limit(1);
+});
+
+// Calculates stations total journeys from and to station. 
+app.get("/getStationJourneys", (req, res) => {
+    let stationID = req.query.stationid;
+    RouteDataModel.find({departurestationid:stationID}, (err, result) => {
+        if(err) {
+            res.json(err);
+        } else {
+            if(result){
+                let departuresFromStation = result.length;
+                //res.json(result);
+                RouteDataModel.find({returnstationid:stationID}, (err, result2) => {
+                    if(err) {
+                        res.json(err);
+                    } else {
+                        if(result){
+                            let calculatedResult = [{
+                                departures: departuresFromStation,
+                                returns: result2.length
+                            }];
+
+                            res.json(calculatedResult);
+                        }
+                    }
+                });
+            }
         }
     });
 });
