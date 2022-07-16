@@ -85,6 +85,22 @@ app.get("/getStationJourneys", (req, res) => {
     });
 });
 
+// Search db by station name
+app.get("/getJourneysFromLocation", (req, res) => {
+    let location = req.query.parameter;
+    RouteDataModel.find({departurestation:location}, (err, result) => {
+        if(err) {
+            res.json(err);
+        } else {
+            if(result){
+                res.json(result);
+            }
+        }
+    });
+});
+
+
+
 // Endpoint to add data to db 
 app.post("/createRoute", async (req, res) => {
     const data = req.body;

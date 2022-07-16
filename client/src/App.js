@@ -1,9 +1,9 @@
 import { useState } from "react";
 import "./App.css";
+import "./utils/globalstyles/mainbutton.css";
 import Routes from "./components/routes/Routes";
 import Stations from "./components/stations/Stations";
 
-import "./globals/mainbutton.css";
 function App() {
   const [toggleNavigation, setToggleNavigation] = useState(true);
   return (
@@ -26,8 +26,8 @@ function App() {
       </div>
       <div className="navigation-container">
         <div className="controls-wrapper">
-          <button className="button-main" style={{width: "300px"}} onClick={()=> {setToggleNavigation(true)}}>Routes</button>
-          <button className="button-main" style={{width: "300px"}} onClick={()=> {setToggleNavigation(false)}}>Stations</button>
+          <button className="button-main" style={{width: "8vw", fontSize: "20px"}} onClick={()=> {setToggleNavigation(true)}}>Routes</button>
+          <button className="button-main" style={{width: "8vw", fontSize: "20px"}} onClick={()=> {setToggleNavigation(false)}}>Stations</button>
         </div>
       </div>
     </div>

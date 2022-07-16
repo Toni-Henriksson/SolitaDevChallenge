@@ -1,14 +1,17 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, scrollview } from 'react';
 import "./routes.css";
 import axios from "axios";
+import { HandleSearch } from '../../utils/reusablefunctions/HandleSearch';
 
 import startImg from './images/locationStart.png';
 import returnImg from './images/locationReturn.png';
-import card from './images/card_dark.png';
+import card from './images/card_small.png';
 const Routes = () => {
   const [listOfRoutes, setListOfRoutes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [next, setNext] = useState(0);
+  const [searchedJourney, setSearchedJourney] = useState('');
+  const [fetchedJourney, setFetchedJourney] = useState([]);
 
   useEffect(() => {
     fetchNextPage(next);
@@ -35,34 +38,40 @@ const Routes = () => {
   }
 
   return (
-    <div className="routes-list-wrapper">
-      {listOfRoutes.map((route, id) => {
-        return (
-          <div key={id} className="route-card" style={{ backgroundImage: `url(${card})`, backgroundRepeat: `no-repeat`, backgroundSize: `cover`, width: `200px` }}>
-            <div className="route-item-section">
-              <div className="route-item-image-container">
-                <img className="route-item-image" src={startImg}></img>
+    <div>
+      <div className='stations-controls'>
+        <input placeholder='Search route by start location..' className='searchbar' onChange={(e) => { setSearchedJourney(e.target.value) }}></input>
+        <button className='button-main' onClick={() => HandleSearch(searchedJourney, "getJourneysFromLocation")}>search</button>
+      </div>
+      <div className="routes-list-wrapper">
+        {listOfRoutes.map((route, id) => {
+          return (
+            <div key={id} className="route-card" style={{ backgroundImage: `url(${card})`, backgroundRepeat: `no-repeat`, backgroundSize: `cover` }}>
+              <div className="route-item-section">
+                <div className="route-item-image-container">
+                  <img className="route-item-image" src={startImg}></img>
+                </div>
+                <div className="route-item-text-container">
+                  <p>{route.departurestation}</p>
+                </div>
               </div>
-              <div className="route-item-text-container">
-                <p>{route.departurestation}</p>
+              <div className="route-item-section">
+                <div className="route-item-image-container">
+                  <img className="route-item-image" src={returnImg}></img>
+                </div>
+                <div className="route-item-text-container">
+                  <p>{route.returnstation}</p>
+                </div>
               </div>
+              <p>Distance: {route.distance}</p>
+              <p>Duration: {route.duration}</p>
             </div>
-            <div className="route-item-section">
-              <div className="route-item-image-container">
-                <img className="route-item-image" src={returnImg}></img>
-              </div>
-              <div className="route-item-text-container">
-                <p>{route.returnstation}</p>
-              </div>
-            </div>
-            <p>Distance: {route.distance}</p>
-            <p>Duration: {route.duration}</p>
-          </div>
-        );
-      })}
-      <div className="pagination-section">
-        <button className="button-main" style={{ backgroundColor: 'cyan' }} onClick={() => { handlePagination(-15) }}>last</button>
-        <button className="button-main" style={{ backgroundColor: 'cyan' }} onClick={() => { handlePagination(15) }}>next</button>
+          );
+        })}
+        <div className="pagination-section">
+          <button className="button-main" style={{ backgroundColor: 'cyan' }} onClick={() => { handlePagination(-15) }}>last</button>
+          <button className="button-main" style={{ backgroundColor: 'cyan' }} onClick={() => { handlePagination(15) }}>next</button>
+        </div>
       </div>
     </div>
   );
