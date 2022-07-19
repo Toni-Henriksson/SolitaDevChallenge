@@ -64,21 +64,19 @@ const Stations = () => {
         {
           toggleSearch ?
             <div>
-              <div className="single-station-card-wrapper">
-                <div className="single-station-card" style={{ backgroundImage: `url(${postitImageDark})`, backgroundRepeat: `no-repeat`, backgroundSize: `cover` }}>
-                  <p>Nimi: {searchStation[0]?.Nimi}</p>
-                  <p>Osoite: {searchStation[0]?.Osoite}</p>
-                  <p>Kaupunki: {searchStation[0]?.Kaupunki}</p>
-                  <p>Omistaja: {searchStation[0]?.Operaattor}</p>
-                  <p>Kapasiteetti: {searchStation[0]?.Kapasiteet}</p>
-                  <p>X-lokaatio: {searchStation[0]?.x}</p>
-                  <p>Y-lokaatio: {searchStation[0]?.y}</p>
+                <div className="single-station-card">
+                  <p>Name: {searchStation[0]?.Nimi}</p>
+                  <p>Address: {searchStation[0]?.Osoite}</p>
+                  <p>City: {searchStation[0]?.Kaupunki}</p>
+                  <p>Owner: {searchStation[0]?.Operaattor}</p>
+                  <p>Capasity: {searchStation[0]?.Kapasiteet}</p>
+                  <p>X-Location: {searchStation[0]?.x}</p>
+                  <p>Y-Location: {searchStation[0]?.y}</p>
                   <p>Total departures: {stationJourneyData[0]?.departures}</p>
                   <p>Total returns: {stationJourneyData[0]?.returns}</p>
                 </div>
-              </div>
               <div className="single-station-controls">
-                <button onClick={() => setToggleSearch(false)}>Close</button>
+                <button className='button-main' onClick={() => setToggleSearch(false)}>Close</button>
               </div>
             </div>
             :

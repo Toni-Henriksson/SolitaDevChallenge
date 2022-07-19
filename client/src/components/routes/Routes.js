@@ -1,17 +1,18 @@
 import { React, useState, useEffect, scrollview } from 'react';
 import "./routes.css";
 import axios from "axios";
-
-import startImg from './images/locationStart.png';
-import returnImg from './images/locationReturn.png';
-import card from './images/card_small.png';
+import { Round, SecToMinutes } from '../../utils/reusablefunctions/CalculationHelpers';
 
 const Routes = () => {
+  // Basic states for pagination ect.
   const [listOfRoutes, setListOfRoutes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [next, setNext] = useState(0);
 
+  // Single joyrney view
+  const [toggleSearch, setToggleSearch] = useState(false);
   const [searchedJourney, setSearchedJourney] = useState('');
+  const [journeyData, setJourneyData] = useState([]);
   const singleJourneyCalculations = [];
 
   useEffect(() => {
@@ -33,10 +34,10 @@ const Routes = () => {
     }
   }
 
-  const HandleSearch = async(stationName) => {
-    axios.get("http://localhost:3001/getStationByName", { params: { stationName } }).then((response) => {  
-      console.log(response.data)
-      calculateStationJourneys(response.data[0].ID)
+  const HandleSearch = async (stationName) => {
+    axios.get("http://localhost:3001/getStationByName", { params: { stationName } }).then((response) => {
+      setJourneyData(response.data);
+      calculateStationJourneys(response.data[0].ID);
     })
   }
 
@@ -58,33 +59,46 @@ const Routes = () => {
         <button className='button-main' onClick={() => HandleSearch(searchedJourney)}>search</button>
       </div>
       <div className="routes-list-wrapper">
-        {listOfRoutes.map((route, id) => {
-          return (
-            <div key={id} className="route-card" style={{ backgroundImage: `url(${card})`, backgroundRepeat: `no-repeat`, backgroundSize: `cover` }}>
-              <div className="route-item-section">
-                <div className="route-item-image-container">
-                  <img className="route-item-image" src={startImg}></img>
-                </div>
-                <div className="route-item-text-container">
-                  <p>{route.departurestation}</p>
-                </div>
+        {
+          toggleSearch ?
+            <div>
+              <div>
+                <p>Journey details</p>
               </div>
-              <div className="route-item-section">
-                <div className="route-item-image-container">
-                  <img className="route-item-image" src={returnImg}></img>
-                </div>
-                <div className="route-item-text-container">
-                  <p>{route.returnstation}</p>
-                </div>
+              <div>
+                <p>Start: {}</p>
+                <p>End: {}</p>
+                <p>Distance: {}</p>
+                <p>Duration: {}</p>
               </div>
-              <p>Distance: {route.distance}</p>
-              <p>Duration: {route.duration}</p>
             </div>
-          );
-        })}
+            :
+            listOfRoutes.map((route, id) => {
+              return (
+                <div key={id} className="route-card">
+
+                  <div className="route-item-section">
+                    <p style={{color: 'green'}}>{route.departurestation}</p>
+                  </div>
+
+                  <div className="route-item-section">
+                      <p style={{color: 'red'}}>{route.returnstation}</p>
+                  </div>
+
+                  <div className="route-item-section">
+                      <p>Distance: { Round(parseFloat(route.distance)/1000, 1) + 'km' }</p>
+                  </div>
+
+                  <div className="route-item-section">
+                      <p>Duration: { Round(SecToMinutes(parseFloat(route.duration)), 1) + 'min'}</p>
+                  </div>
+
+                </div>
+              );
+            })}
         <div className="pagination-section">
-          <button className="button-main" style={{ backgroundColor: 'cyan' }} onClick={() => { handlePagination(-15) }}>last</button>
-          <button className="button-main" style={{ backgroundColor: 'cyan' }} onClick={() => { handlePagination(15) }}>next</button>
+          <button className="button-main" style={{ backgroundColor: 'cyan' }} onClick={() => { handlePagination(-8) }}>last</button>
+          <button className="button-main" style={{ backgroundColor: 'cyan' }} onClick={() => { handlePagination(8) }}>next</button>
         </div>
       </div>
     </div>

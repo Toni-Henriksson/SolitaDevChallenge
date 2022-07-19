@@ -37,9 +37,18 @@
   }
   .single-station-card{
     width: 500px;
-    height: 500px;
+    height: 700px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border: solid 2px black;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+    padding: 0px 10px 0px 10px;
+  }
+  .single-station-controls{
+    display: flex;
+    justify-content: center;
     align-items: center;
+    align-content: center;
   }

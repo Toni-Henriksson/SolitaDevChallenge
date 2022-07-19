@@ -9,16 +9,8 @@ app.use(express.json());
 app.use(cors());
 mongoose.connect(process.env.MONGODB_URL);
 
-// Endpoint gets all routedata from database. (We dont use this, dataset is so huge it would just crash the app.)
-app.get("/getData", (req, res) => {
-    RouteDataModel.find({distance:{$gt:10}, duration: {$gt:10}}, (err, result) => {
-        if(err) {
-            res.json(err);
-        } else {
-            res.json(result);
-        }
-    }).limit(40);
-});
+// see for explanation of mongoose find function: https://www.geeksforgeeks.org/mongoose-find-function/
+// Documentation for mongoose db models: https://mongoosejs.com/docs/models.html
 
 // Endpoint to handle paginated db search, this way we just get small chunk of data that user needs. Instantly. 
 app.get("/getNextData", (req, res) => {
@@ -28,11 +20,10 @@ app.get("/getNextData", (req, res) => {
         } else {
             res.json(result);
         }
-    }).skip(req.query.next).limit(15);
+    }).skip(req.query.next).limit(8);
 });
 
 // Paginated DB search for stations
-// see for explanation of mongoose find function: https://www.geeksforgeeks.org/mongoose-find-function/
 app.get("/getStations", (req, res) => {
     StationsDataModel.find({}, (err, result) => {
         if(err) {
