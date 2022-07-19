@@ -11,7 +11,7 @@ function App() {
       <div className="header">
       {
           toggleNavigation ? 
-          <h1>BROWSE ROUTES</h1>
+          <h1>EXPLORE JOURNEYS</h1>
           :
           <h1>BROWSE STATIONS</h1>
         }
@@ -26,7 +26,7 @@ function App() {
       </div>
       <div className="navigation-container">
         <div className="controls-wrapper">
-          <button className="button-main" style={{width: "8vw", fontSize: "20px"}} onClick={()=> {setToggleNavigation(true)}}>Routes</button>
+          <button className="button-main" style={{width: "8vw", fontSize: "20px"}} onClick={()=> {setToggleNavigation(true)}}>Journeys</button>
           <button className="button-main" style={{width: "8vw", fontSize: "20px"}} onClick={()=> {setToggleNavigation(false)}}>Stations</button>
         </div>
       </div>

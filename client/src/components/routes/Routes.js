@@ -1,17 +1,18 @@
 import { React, useState, useEffect, scrollview } from 'react';
 import "./routes.css";
 import axios from "axios";
-import { HandleSearch } from '../../utils/reusablefunctions/HandleSearch';
 
 import startImg from './images/locationStart.png';
 import returnImg from './images/locationReturn.png';
 import card from './images/card_small.png';
+
 const Routes = () => {
   const [listOfRoutes, setListOfRoutes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [next, setNext] = useState(0);
+
   const [searchedJourney, setSearchedJourney] = useState('');
-  const [fetchedJourney, setFetchedJourney] = useState([]);
+  const singleJourneyCalculations = [];
 
   useEffect(() => {
     fetchNextPage(next);
@@ -24,13 +25,26 @@ const Routes = () => {
       setLoading(false);
     })
   }
-
   const handlePagination = (numOfPages) => {
     let i = next + numOfPages;
     if (i >= 0) {
       setNext(i)
       fetchNextPage(i)
     }
+  }
+
+  const HandleSearch = async(stationName) => {
+    axios.get("http://localhost:3001/getStationByName", { params: { stationName } }).then((response) => {  
+      console.log(response.data)
+      calculateStationJourneys(response.data[0].ID)
+    })
+  }
+
+  const calculateStationJourneys = (stationid) => {
+    axios.get("http://localhost:3001/getStationJourneys", { params: { stationid } }).then((response) => {
+      singleJourneyCalculations.push(response.data)
+      console.log(singleJourneyCalculations)
+    })
   }
 
   if (loading) {
@@ -40,8 +54,8 @@ const Routes = () => {
   return (
     <div>
       <div className='stations-controls'>
-        <input placeholder='Search route by start location..' className='searchbar' onChange={(e) => { setSearchedJourney(e.target.value) }}></input>
-        <button className='button-main' onClick={() => HandleSearch(searchedJourney, "getJourneysFromLocation")}>search</button>
+        <input placeholder='Search journey by start location..' className='searchbar' onChange={(e) => { setSearchedJourney(e.target.value) }}></input>
+        <button className='button-main' onClick={() => HandleSearch(searchedJourney)}>search</button>
       </div>
       <div className="routes-list-wrapper">
         {listOfRoutes.map((route, id) => {
