@@ -82,13 +82,12 @@ const Stations = () => {
             :
             listOfStations.map((station, id) => {
               return (
-                <div key={id} className="station-item" onClick={() => console.log(id)}>
+                <div key={id} className="station-item" onClick={() => handleSearch(station.Nimi)}>
                   <div className="station-item-section" style={{ backgroundImage: `url(${postitImageDark})`, backgroundRepeat: `no-repeat`, backgroundSize: `cover` }}>
                     <p>STATION</p>
                     <p>Station name: {station.Nimi}</p>
                     <p>Stations address: {station.Osoite}</p>
-                    <p>{station.Nimi}</p>
-                    <p>{station.Nimi}</p>
+                    <p style={{color: 'green', fontSize: '20px'}}>Click me to see more!</p>
                   </div>
                 </div>
               );

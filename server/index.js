@@ -7,7 +7,14 @@ const cors = require('cors');
 require("dotenv").config();
 app.use(express.json());
 app.use(cors());
+
+const PORT = process.env.PORT;
+
 mongoose.connect(process.env.MONGODB_URL);
+
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('client/build'));
+}
 
 // see for explanation of mongoose find function: https://www.geeksforgeeks.org/mongoose-find-function/
 // Documentation for mongoose db models: https://mongoosejs.com/docs/models.html

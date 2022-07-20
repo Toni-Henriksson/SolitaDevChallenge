@@ -1,9 +1,14 @@
 .station-item{
     display: flex;
+    flex-direction: row;
     width: 300px;
     height: 300px;
-    flex-direction: row;
     margin: 5px;
+}
+.station-item:hover{
+  cursor: pointer;
+  opacity: 0.7;
+  pointer-events: painted;
 }
 .stations-list-wrapper {
     display: flex;
