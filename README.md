@@ -1,7 +1,7 @@
 # Solita dev academy's coding challenge
 **I created an diary about the progress i made during completing this challenge. Check it out: project_diary.txt**
-**You can explore the application, its live and deployed to the web.**
-**https://hsbikeapp.netlify.app/**
+### You can explore the application, its live and deployed to the web:
+https://hsbikeapp.netlify.app/
 
 ## I chose to use following technologies for this challenge: 
 1. **M**ongoDB
