@@ -8,13 +8,10 @@ require("dotenv").config();
 app.use(express.json());
 app.use(cors());
 
-const PORT = process.env.PORT;
-
-mongoose.connect(process.env.MONGODB_URL);
-
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static('client/build'));
-}
+mongoose.connect(process.env.MONGODB_URL),{
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+};
 
 // see for explanation of mongoose find function: https://www.geeksforgeeks.org/mongoose-find-function/
 // Documentation for mongoose db models: https://mongoosejs.com/docs/models.html
@@ -44,7 +41,7 @@ app.get("/getStations", (req, res) => {
 // Search db by station name
 app.get("/getStationByName", (req, res) => {
     let station = req.query.stationName;
-    StationsDataModel.find({Nimi:station}, (err, result) => {
+    StationsDataModel.find({Name:station}, (err, result) => {
         if(err) {
             res.json(err);
         } else {
@@ -98,8 +95,7 @@ app.get("/getJourneysFromLocation", (req, res) => {
 });
 
 
-
-// Endpoint to add data to db 
+// Endpoint to add route  
 app.post("/createRoute", async (req, res) => {
     const data = req.body;
     const newData =  new RouteDataModel(data);
@@ -107,6 +103,14 @@ app.post("/createRoute", async (req, res) => {
     res.json(data);
 });
 
-app.listen(3001, () => {
+// Endpoint to add station
+app.post("/createStation", async (req, res) => {
+    const data = req.body;
+    const newData =  new StationsDataModel(data);
+    await newData.save();
+    res.json(data);
+});
+
+app.listen(process.env.PORT || 3001, () => {
     console.log("Server running!");
 });

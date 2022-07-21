@@ -20,7 +20,7 @@ const Stations = () => {
 
   const fetchNextPage = async (next) => {
     setLoading(true);
-    axios.get("http://localhost:3001/getStations", { params: { next } }).then((response) => {
+    axios.get("https://solitadevaus.herokuapp.com/getStations", { params: { next } }).then((response) => {
       setListOfStations(response.data)
       setLoading(false);
     })
@@ -33,8 +33,9 @@ const Stations = () => {
       fetchNextPage(i)
     }
   }
+
   const handleSearch = async (stationName) => {
-    axios.get("http://localhost:3001/getStationByName", { params: { stationName } }).then((response) => {
+    axios.get("https://solitadevaus.herokuapp.com/getStationByName", { params: { stationName } }).then((response) => {
       calculateStationJourneys(response.data[0].ID)
       setSearchStation(response.data);
       setToggleSearch(true);
@@ -42,10 +43,11 @@ const Stations = () => {
   }
 
   const calculateStationJourneys = (stationid) => {
-    axios.get("http://localhost:3001/getStationJourneys", { params: { stationid } }).then((response) => {
+    axios.get("https://solitadevaus.herokuapp.com/getStationJourneys", { params: { stationid } }).then((response) => {
       setStationJourneyData(response.data)
     })
   }
+  
   if (loading) {
     return (
       <div style={{ alignself: 'center' }}>
@@ -55,7 +57,7 @@ const Stations = () => {
   }
 
   return (
-    <div>
+    <div className='container'>
       <div className='stations-controls'>
         <input placeholder='Search station by name..' className='searchbar' onChange={(e) => { setSearchedStation(e.target.value) }}></input>
         <button className='button-main' onClick={() => handleSearch(searchedStation)}>search</button>
@@ -65,8 +67,8 @@ const Stations = () => {
           toggleSearch ?
             <div>
                 <div className="single-station-card">
-                  <p>Name: {searchStation[0]?.Nimi}</p>
-                  <p>Address: {searchStation[0]?.Osoite}</p>
+                  <p>Name: {searchStation[0]?.Name}</p>
+                  <p>Address: {searchStation[0]?.Adress}</p>
                   <p>City: {searchStation[0]?.Kaupunki}</p>
                   <p>Owner: {searchStation[0]?.Operaattor}</p>
                   <p>Capasity: {searchStation[0]?.Kapasiteet}</p>
@@ -83,11 +85,11 @@ const Stations = () => {
             listOfStations.map((station, id) => {
               return (
                 <div key={id} className="station-item" onClick={() => handleSearch(station.Nimi)}>
-                  <div className="station-item-section" style={{ backgroundImage: `url(${postitImageDark})`, backgroundRepeat: `no-repeat`, backgroundSize: `cover` }}>
+                  <div className="station-item-section">
                     <p>STATION</p>
                     <p>Station name: {station.Nimi}</p>
                     <p>Stations address: {station.Osoite}</p>
-                    <p style={{color: 'green', fontSize: '20px'}}>Click me to see more!</p>
+                    <p style={{color: 'green'}}>Click me to see more!</p>
                   </div>
                 </div>
               );

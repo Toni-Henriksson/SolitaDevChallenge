@@ -28,8 +28,14 @@
 - Buttons for next page and previous button.
 - Endpoint was getting all the journey data from database, this caused huge lag obviously. 
     -- Fixed this issue by making an endoint that takes pagination parameter in and based on that gets data from database. 
-       This way only the needed data for the page is fetched from the db, instantly. No lag. yayy :).  
+       This way only the needed data for the page is fetched from the db, instantly(almost). No lag. yayy :).  
 
 14.7.2022
 - Added feature to calculate all stations returns and departures. 
 - Did some work on the front end to make app look better (more retro). Altought i dont think looks really matter in this challenge, but i wanted it nice anyway :)
+
+21.7.2022
+- Helper functions for various things
+- Alot of work on UI and responsiveness.
+- Backend hosting in the cloud (Heroku)
+- Frontend hosting in Netlify

@@ -2,34 +2,26 @@ const mongoose = require('mongoose')
 mongoose.pluralize(null);
 
 const StationsDataSchema = new mongoose.mongoose.Schema({
-    Nimi: {
+    Name: {
         type: String,
         required: true,
     },
-    Osoite: {
+    Adress: {
         type: String,
         required: true,
     },
-    Kaupunki: {
+    City: {
         type: String,
         required: true,
     },
-    Omistaja: {
+    Owner: {
         type: String,
         required: true,
     },
-    Kapasiteetti: {
+    Capacity: {
         type: String,
         required: true,
-    },
-    x: {
-        type: String,
-        required: true,
-    },
-    y: {
-        type: String,
-        required: true,
-    },
+    }
 });
 
 const StationsDataModel = mongoose.model("stations", StationsDataSchema)

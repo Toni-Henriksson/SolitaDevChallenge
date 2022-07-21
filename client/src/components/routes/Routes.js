@@ -1,4 +1,4 @@
-import { React, useState, useEffect, scrollview } from 'react';
+import { React, useState, useEffect} from 'react';
 import "./routes.css";
 import axios from "axios";
 import { Round, SecToMinutes } from '../../utils/reusablefunctions/CalculationHelpers';
@@ -13,7 +13,7 @@ const Routes = () => {
   const [toggleSearch, setToggleSearch] = useState(false);
   const [searchedJourney, setSearchedJourney] = useState('');
   const [journeyData, setJourneyData] = useState([]);
-  const singleJourneyCalculations = [];
+  const [singleJourneyCalculations, setSingleJourneyCalculations] = useState([]);
 
   useEffect(() => {
     fetchNextPage(next);
@@ -21,7 +21,7 @@ const Routes = () => {
 
   const fetchNextPage = async (next) => {
     setLoading(true);
-    axios.get("http://localhost:3001/getNextData", { params: { next } }).then((response) => {
+    axios.get("https://solitadevaus.herokuapp.com/getNextData", { params: { next } }).then((response) => {
       setListOfRoutes(response.data)
       setLoading(false);
     })
@@ -35,16 +35,16 @@ const Routes = () => {
   }
 
   const HandleSearch = async (stationName) => {
-    axios.get("http://localhost:3001/getStationByName", { params: { stationName } }).then((response) => {
+    axios.get("https://solitadevaus.herokuapp.com/getStationByName", { params: { stationName } }).then((response) => {
       setJourneyData(response.data);
       calculateStationJourneys(response.data[0].ID);
     })
   }
 
   const calculateStationJourneys = (stationid) => {
-    axios.get("http://localhost:3001/getStationJourneys", { params: { stationid } }).then((response) => {
-      singleJourneyCalculations.push(response.data)
-      console.log(singleJourneyCalculations)
+    axios.get("https://solitadevaus.herokuapp.com/getStationJourneys", { params: { stationid } }).then((response) => {
+      setSingleJourneyCalculations(response.data)
+      setToggleSearch(true)
     })
   }
 
@@ -61,17 +61,22 @@ const Routes = () => {
       <div className="routes-list-wrapper">
         {
           toggleSearch ?
-            <div>
-              <div>
-                <p>Journey details</p>
+          <div className='route-search-container'>
+            <div className='single-station-card'>
+              <div className='station-title'>
+                <p>{journeyData[0].Name}</p>
               </div>
-              <div>
-                <p>Start: {}</p>
-                <p>End: {}</p>
-                <p>Distance: {}</p>
-                <p>Duration: {}</p>
+
+              <div className='station-content'>
+                <p>Departures from here: {singleJourneyCalculations[0].departures}</p>
+                <p>Returns to this location: {singleJourneyCalculations[0].returns}</p>
+              </div>
+              
+              <div className="single-station-controls">
+                <button className='button-main' onClick={() => setToggleSearch(false)}>Close</button>
               </div>
             </div>
+          </div>
             :
             listOfRoutes.map((route, id) => {
               return (
